@@ -15,6 +15,7 @@ public:
     static void test_mat();
     static void test_iplimage();
     static void test_gpu_mat();
+    static void test_cu_opencv();
 };
 
 #endif // CUDAOPENCV_H
