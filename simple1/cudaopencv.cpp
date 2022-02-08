@@ -41,7 +41,7 @@ void CudaOpencv::test_iplimage(){
 
     double time = cudaInverseImg(pImgOut, pImgIn, nWidth, nHeight, nWidthStep, nChannels);
 
-    printf("time : %f", time);
+    printf("test_iplimage >> time : %f\n", time);
 
     IplImage* imgOut = cvCreateImageHeader(cvSize(nWidth, nHeight), nDepth, nChannels);
     cvSetData(imgOut, pImgOut, nWidthStep);
@@ -57,13 +57,13 @@ void CudaOpencv::test_mat(){
     const int64 startCpu = getTickCount();
     cpuMirrorImg(srcImage, dstImageCpu);
     const double timeSecCpu = (getTickCount() - startCpu) / getTickFrequency();
-    cout << "CPU Time : " << timeSecCpu * 1000 << " ms" << endl;
+    cout << "test_mat >> CPU Time : " << timeSecCpu * 1000 << " ms" << endl;
 
     Mat dstImageGpu = Mat::zeros(srcImage.size(), srcImage.type());
     const int64 startGpu = getTickCount();
     gpuMirrorImg(srcImage, dstImageGpu);
     const double timeSecGpu = (getTickCount() - startGpu) / getTickFrequency();
-    cout << "GPU Time : " << timeSecGpu * 1000 << " ms" << endl;
+    cout << "test_mat >> GPU Time : " << timeSecGpu * 1000 << " ms" << endl;
 
     imshow("source", srcImage);
     imshow("mirror [CPU]", dstImageCpu);
@@ -101,7 +101,7 @@ static void help()
     cout << "Usage:" << endl;
     cout << "./gpu-example-houghlines <image_name>, Default is ../data/pic1.png\n" << endl;
 }
-void test_cu_opencv(){
+void CudaOpencv::test_cu_opencv(){
     Mat src = imread(IMG_SRC, IMREAD_GRAYSCALE);
     if (src.empty())
     {
@@ -119,8 +119,8 @@ void test_cu_opencv(){
         const int64 start = getTickCount();
         cv::HoughLinesP(mask, lines_cpu, 1, CV_PI / 180, 50, 60, 5);
         const double timeSec = (getTickCount() - start) / getTickFrequency();
-        cout << "CPU Time : " << timeSec * 1000 << " ms" << endl;
-        cout << "CPU Found : " << lines_cpu.size() << endl;
+        cout << "test_cu_opencv >> CPU Time : " << timeSec * 1000 << " ms" << endl;
+        cout << "test_cu_opencv >> CPU Found : " << lines_cpu.size() << endl;
     }
     for (size_t i = 0; i < lines_cpu.size(); ++i)
     {

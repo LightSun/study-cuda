@@ -17,7 +17,8 @@ int main()
     printCudaInfo();
    // CudaOpencv::test1();
    // CudaOpencv::test_iplimage();
-    CudaOpencv::test_gpu_mat();
+   // CudaOpencv::test_gpu_mat();
+    CudaOpencv::test_cu_opencv();
     return 0;
 }
 
