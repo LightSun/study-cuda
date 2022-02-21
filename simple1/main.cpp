@@ -18,7 +18,11 @@ int main()
    // CudaOpencv::test1();
    // CudaOpencv::test_iplimage();
    // CudaOpencv::test_gpu_mat();
-    CudaOpencv::test_cu_opencv();
+    //CudaOpencv::test_cu_opencv();
+#ifdef LIB_TORCH
+    extern int main_libtorch();
+    main_libtorch();
+#endif
     return 0;
 }
 
