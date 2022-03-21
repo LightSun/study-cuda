@@ -10,6 +10,7 @@
 using namespace std;
 
 extern "C" void addWithCuda(int *c, const int *a, const int *b, unsigned int size);
+extern "C" void test_performance0();
 
 void CudaDemo::testTotal()
 {
@@ -58,4 +59,14 @@ void CudaDemo::testTotal()
    delete[] cc;
 
    printf("----> end CudaDemo::testTotal()\n");
+}
+
+void CudaDemo::test_performance(){
+/**
+    GPU memory: 7.629395e+00 MB
+    GPU time: 21.436000 ms
+    CPU time: 2310.440000 ms
+    Max error: 1.19208e-07 Average error: 1.14175e-09
+*/
+    test_performance0();
 }

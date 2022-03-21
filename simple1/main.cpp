@@ -9,9 +9,8 @@
 
 using namespace std;
 
-
 static void printCudaInfo();
-
+static void printDeviceProp(const cudaDeviceProp& prop);
 static void testCvResize();
 
 //from: 'https://blog.csdn.net/xx116213/article/details/50704335'
@@ -36,6 +35,7 @@ int main()
     //StudyOpenMp::test5();
 
     CudaDemo::testTotal();
+    CudaDemo::test_performance();
     return 0;
 }
 
@@ -48,37 +48,31 @@ static void printCudaInfo(){
     int dev;
     for (dev = 0; dev < deviceCount; dev++)
     {
-        int driver_version(0), runtime_version(0);
         cudaDeviceProp deviceProp;
         cudaGetDeviceProperties(&deviceProp, dev);
-        if (dev == 0)
-            if (deviceProp.minor = 9999 && deviceProp.major == 9999)
-                printf("\n");
-        printf("\nDevice%d:\"%s\"\n", dev, deviceProp.name);
-        cudaDriverGetVersion(&driver_version);
-        printf("CUDA驱动版本:                                   %d.%d\n", driver_version / 1000, (driver_version % 1000) / 10);
-        cudaRuntimeGetVersion(&runtime_version);
-        printf("CUDA运行时版本:                                 %d.%d\n", runtime_version / 1000, (runtime_version % 1000) / 10);
-        printf("设备计算能力:                                   %d.%d\n", deviceProp.major, deviceProp.minor);
-        printf("Total amount of Global Memory:                  %u bytes\n", deviceProp.totalGlobalMem);
-        printf("Number of SMs:                                  %d\n", deviceProp.multiProcessorCount);
-        printf("Total amount of Constant Memory:                %u bytes\n", deviceProp.totalConstMem);
-        printf("Total amount of Shared Memory per block:        %u bytes\n", deviceProp.sharedMemPerBlock);
-        printf("Total number of registers available per block:  %d\n", deviceProp.regsPerBlock);
-        printf("Warp size:                                      %d\n", deviceProp.warpSize);
-        printf("Maximum number of threads per SM:               %d\n", deviceProp.maxThreadsPerMultiProcessor);
-        printf("Maximum number of threads per block:            %d\n", deviceProp.maxThreadsPerBlock);
-        printf("Maximum size of each dimension of a block:      %d x %d x %d\n", deviceProp.maxThreadsDim[0],
-            deviceProp.maxThreadsDim[1],
-            deviceProp.maxThreadsDim[2]);
-        printf("Maximum size of each dimension of a grid:       %d x %d x %d\n", deviceProp.maxGridSize[0], deviceProp.maxGridSize[1], deviceProp.maxGridSize[2]);
-        printf("Maximum memory pitch:                           %u bytes\n", deviceProp.memPitch);
-        printf("Texture alignmemt:                              %u bytes\n", deviceProp.texturePitchAlignment);
-        printf("Clock rate:                                     %.2f GHz\n", deviceProp.clockRate * 1e-6f);
-        printf("Memory Clock rate:                              %.0f MHz\n", deviceProp.memoryClockRate * 1e-3f);
-        printf("Memory Bus Width:                               %d-bit\n", deviceProp.memoryBusWidth);
+        printDeviceProp(deviceProp);
     }
+    cudaSetDevice(0);
 }
+static void printDeviceProp(const cudaDeviceProp& prop)
+{
+    printf("Device Name : %s.\n", prop.name);
+    printf("totalGlobalMem : %d.\n", prop.totalGlobalMem);
+    printf("sharedMemPerBlock : %d.\n", prop.sharedMemPerBlock);
+    printf("regsPerBlock : %d.\n", prop.regsPerBlock);
+    printf("warpSize : %d.\n", prop.warpSize);
+    printf("memPitch : %d.\n", prop.memPitch);
+    printf("maxThreadsPerBlock : %d.\n", prop.maxThreadsPerBlock);
+    printf("maxThreadsDim[0 - 2] : %d %d %d.\n", prop.maxThreadsDim[0], prop.maxThreadsDim[1], prop.maxThreadsDim[2]);
+    printf("maxGridSize[0 - 2] : %d %d %d.\n", prop.maxGridSize[0], prop.maxGridSize[1], prop.maxGridSize[2]);
+    printf("totalConstMem : %d.\n", prop.totalConstMem);
+    printf("major.minor : %d.%d.\n", prop.major, prop.minor);
+    printf("clockRate : %d.\n", prop.clockRate);
+    printf("textureAlignment : %d.\n", prop.textureAlignment);
+    printf("deviceOverlap : %d.\n", prop.deviceOverlap);
+    printf("multiProcessorCount : %d.\n", prop.multiProcessorCount);
+}
+
 void testCvResize(){
     auto mat = cv::imread("/home/heaven7/heaven7/study/github/mine/"
                "tensorrt-pri/trt_py/src/test_cv11.png");
