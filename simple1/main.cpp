@@ -4,25 +4,38 @@
 #include <stdio.h>
 #include <iostream>
 #include "cudaopencv.h"
+#include "StudyOpenMp.h"
+#include "CudaDemo.h"
 
 using namespace std;
 
 
 static void printCudaInfo();
 
+static void testCvResize();
+
 //from: 'https://blog.csdn.net/xx116213/article/details/50704335'
 int main()
 {
+    testCvResize();
    // cout << "Hello World!" << endl;
     printCudaInfo();
    // CudaOpencv::test1();
    // CudaOpencv::test_iplimage();
    // CudaOpencv::test_gpu_mat();
     //CudaOpencv::test_cu_opencv();
+    //cv::namedWindow()
 #ifdef LIB_TORCH
     extern int main_libtorch();
     main_libtorch();
 #endif
+    StudyOpenMp::test1();
+    StudyOpenMp::test2();
+    StudyOpenMp::test3();
+    StudyOpenMp::test4();
+    //StudyOpenMp::test5();
+
+    CudaDemo::testTotal();
     return 0;
 }
 
@@ -65,4 +78,15 @@ static void printCudaInfo(){
         printf("Memory Clock rate:                              %.0f MHz\n", deviceProp.memoryClockRate * 1e-3f);
         printf("Memory Bus Width:                               %d-bit\n", deviceProp.memoryBusWidth);
     }
+}
+void testCvResize(){
+    auto mat = cv::imread("/home/heaven7/heaven7/study/github/mine/"
+               "tensorrt-pri/trt_py/src/test_cv11.png");
+    std::string path = "/home/heaven7/heaven7/work/out/kun_raw/img_11.png";
+    cv::Mat src_mat = cv::imread(path);
+    cv::Mat src_mat2;
+    cv::resize(src_mat, src_mat2, cv::Size(1000, 1000), 0, 0, cv::INTER_LINEAR);
+
+    cv::imshow("testCvResize", cv::abs(src_mat2 - mat));
+    cv::waitKey(0);
 }

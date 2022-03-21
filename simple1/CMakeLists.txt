@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(simple1 LANGUAGES CXX)
+project(cuda_simple1 LANGUAGES C CXX)
 
 #libtorch require cpp14
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fopenmp")
 
-set(LIB_TORCH ON)
+set(LIB_TORCH OFF)
 if(LIB_TORCH)
     add_definitions(-DLIB_TORCH)
-    SET(LIB_TORCH_DIR /home/heaven7/heaven7/libs/libtorch-cxx11-abi-shared-with-deps-1.8.0+cu111/libtorch)
+    SET(LIB_TORCH_DIR /home/heaven7/heaven7/libs/libtorch-1.8.0_cu111/libtorch)
     include(${LIB_TORCH_DIR}/share/cmake/Torch/TorchConfig.cmake)
 endif(LIB_TORCH)
 #cuda
@@ -25,6 +26,8 @@ message(STATUS "    libraries: ${LIBS}")
 #opencv
 #SET(OPENCV /home/heaven7/heaven7/libs/build-opencv-3.4.5-Desktop_Qt_5_14_2_GCC_64bit-Release)
 SET(OPENCV /home/heaven7/heaven7/libs/opencv-3.4.5/.build_out/share/OpenCV)
+#SET(OPENCV /home/heaven7/heaven7/libs/build-opencv-4.5.4-Desktop_Qt_5_14_2_GCC_64bit-Release)
+
 include(${OPENCV}/OpenCVConfig.cmake)
 #find_package(OpenCV 3 REQUIRED)
 include_directories( ${OpenCV_INCLUDE_DIRS} )
