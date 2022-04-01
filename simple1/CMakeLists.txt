@@ -5,7 +5,7 @@ project(cuda_simple1 LANGUAGES C CXX)
 #libtorch require cpp14
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fopenmp")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fopenmp -g")
 
 set(LIB_TORCH OFF)
 if(LIB_TORCH)
@@ -41,8 +41,9 @@ message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
 
 ## find source and header to build
-file(GLOB_RECURSE CURRENT_HEADERS  *.h *.hpp *.cuh)
-file(GLOB CURRENT_SOURCES  *.cpp *.cu)
+# GLOB_RECURSE/GLOB
+file(GLOB CURRENT_HEADERS  cuda_opencv/*.h cuda_opencv/*.hpp cuda_opencv/*.cuh)
+file(GLOB CURRENT_SOURCES  cuda_opencv/*.cpp cuda_opencv/*.cu)
 source_group("Include" FILES ${CURRENT_HEADERS})
 source_group("Source" FILES ${CURRENT_SOURCES})
 
@@ -53,3 +54,22 @@ target_link_libraries(simple1  ${OpenCV_LIBS} ${LIBS} ${CUDA_LIBRARIES} ${RTLIBS
 if(LIB_TORCH)
     target_link_libraries(simple1 ${TORCH_LIBRARIES})
 endif(LIB_TORCH)
+
+## avx study
+#add_compile_definitions(-DNDEBUG)
+if(NOT APPLE)
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-as-needed")
+endif()
+file(GLOB AVX_HEADERS  avx/*.h avx/*.hpp avx/*.cuh)
+file(GLOB AVX_SRCS  avx/*.cpp avx/*.cu)
+set_property(SOURCE avx/study_avx.cpp APPEND_STRING PROPERTY COMPILE_FLAGS
+    "-march=knl -mavx -mavx2 -mavx512f -mavx512dq -mavx512vl ")
+set_property(SOURCE avx/avx_main.cpp APPEND_STRING PROPERTY COMPILE_FLAGS
+    "-march=native -mavx -mavx2 -mavx512f -mavx512dq -mavx512vl ")
+
+source_group("Include" FILES ${AVX_HEADERS})
+source_group("Source" FILES ${AVX_SRCS})
+add_executable(study_avx
+    ${AVX_HEADERS}
+    ${AVX_SRCS}
+    )
