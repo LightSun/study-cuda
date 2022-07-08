@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -69,4 +70,46 @@ void CudaDemo::test_performance(){
     Max error: 1.19208e-07 Average error: 1.14175e-09
 */
     test_performance0();
+}
+
+extern "C" void cuda_processOverlap(int* _ls,
+                                    int* _columns, int colLen,
+                                    int* _starts, int* _ends, int rc,
+                                    int s1_start, int s1_end, int grid_block[4]);
+void CudaDemo::test_findOverlap(){
+    int rc = 10;
+    int _starts[rc];
+    int _ends[rc];
+    for(int i = 0 ; i < rc ; i ++){
+        _starts[i] = i;
+        _ends[i] = i + 10;//0-10, 1-11, 2-12 .... 9-19
+    }
+    int colLen = 8;
+    int _columns[colLen];
+    for(int i = 0 ; i < colLen ; i ++){
+        _columns[i] = colLen - i - 1;//7,6,5....0
+    }
+    int _ls[colLen];
+    int s1_start = 3;
+    int s1_end = 16;
+    //
+    int grid_block[4];
+    memset(grid_block, 0, 4 * sizeof (int));
+//    grid_block[0] = 2;
+//    grid_block[1] = 2;
+//    grid_block[2] = 2;
+//    grid_block[3] = 0;
+    cuda_processOverlap(_ls, _columns, colLen, _starts, _ends,
+                        rc, s1_start, s1_end, grid_block);
+    for(int i = 0 ; i < colLen ; i ++){
+        printf("_ls[%d] = %d\n", i, _ls[i]);
+        //0: 7-17 ,3-16 ---> 16 - 7 = 9
+        //1: 6-16       ---> 16 - 6 = 10
+        //2: 5-15       ---> 15-5 = 10
+        //3: 4-14       ---> 14-4 = 10
+        //4: 3-13       ---> 13-3 = 10
+        //5: 2-12       ---> 12-3 = 9
+        //6: 1-11       ---> 11-3 = 8
+        //7: 0-10       ---> 10-3 = 7
+    }
 }

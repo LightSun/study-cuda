@@ -69,7 +69,9 @@ __global__ void testBlockThread3(int *c, const int *a, const int *b)
     int i = threadId_3D + (blockDim.x*blockDim.y*blockDim.z)*blockIdx.x;
     c[i] = b[i] - a[i];
 }
-
+//uint3 s1; s1.x = 10; s1.y = 10; s1.z = 1;
+//uint3 s2; s2.x = size / 100; s2.y = 1; s2.z = 1;
+//testBlockThread4 << <s1, s2 >> >(dev_c, dev_a, dev_b);
 //block-thread 2D-1D
 __global__ void testBlockThread4(int *c, const int *a, const int *b)
 {

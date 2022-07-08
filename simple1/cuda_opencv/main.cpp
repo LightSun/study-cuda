@@ -28,14 +28,15 @@ int main()
     extern int main_libtorch();
     main_libtorch();
 #endif
-    StudyOpenMp::test1();
-    StudyOpenMp::test2();
-    StudyOpenMp::test3();
-    StudyOpenMp::test4();
+//    StudyOpenMp::test1();
+//    StudyOpenMp::test2();
+//    StudyOpenMp::test3();
+//    StudyOpenMp::test4();
     //StudyOpenMp::test5();
 
-    CudaDemo::testTotal();
-    CudaDemo::test_performance();
+//    CudaDemo::testTotal();
+//    CudaDemo::test_performance();
+    CudaDemo::test_findOverlap();
     return 0;
 }
 
@@ -57,11 +58,11 @@ static void printCudaInfo(){
 static void printDeviceProp(const cudaDeviceProp& prop)
 {
     printf("Device Name : %s.\n", prop.name);
-    printf("totalGlobalMem : %d.\n", prop.totalGlobalMem);
+    printf("totalGlobalMem : %ud.\n", prop.totalGlobalMem);
     printf("sharedMemPerBlock : %d.\n", prop.sharedMemPerBlock);
     printf("regsPerBlock : %d.\n", prop.regsPerBlock);
     printf("warpSize : %d.\n", prop.warpSize);
-    printf("memPitch : %d.\n", prop.memPitch);
+    printf("memPitch : %ud.\n", prop.memPitch);
     printf("maxThreadsPerBlock : %d.\n", prop.maxThreadsPerBlock);
     printf("maxThreadsDim[0 - 2] : %d %d %d.\n", prop.maxThreadsDim[0], prop.maxThreadsDim[1], prop.maxThreadsDim[2]);
     printf("maxGridSize[0 - 2] : %d %d %d.\n", prop.maxGridSize[0], prop.maxGridSize[1], prop.maxGridSize[2]);

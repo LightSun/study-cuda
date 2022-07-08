@@ -18,7 +18,7 @@ find_package(CUDA REQUIRED)
 message(“CUDA_LIBRARIES:${CUDA_LIBRARIES}”)
 message(“CUDA_INCLUDE_DIRS:${CUDA_INCLUDE_DIRS}”)
 include_directories(${CUDA_INCLUDE_DIRS})
-#nvcc
+#nvcc flags 'https://blog.csdn.net/panda1234lee/article/details/110091930'
 set(CUDA_NVCC_FLAGS -gencode arch=compute_80,code=sm_80;-G;-g)
 
 message(STATUS "    libraries: ${LIBS}")
