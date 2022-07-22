@@ -6,6 +6,7 @@
 #include "cudaopencv.h"
 #include "StudyOpenMp.h"
 #include "CudaDemo.h"
+#include "Arguments.hpp"
 
 using namespace std;
 
@@ -14,8 +15,20 @@ static void printDeviceProp(const cudaDeviceProp& prop);
 static void testCvResize();
 
 //from: 'https://blog.csdn.net/xx116213/article/details/50704335'
-int main()
+int main(int argc, char **argv)
 {
+    Arguments args(argc, argv);
+    args.addArgument("config", "the config");
+    args.addArgument("files", "the files");
+    std::string val = args.get("config").as<std::string>();
+    auto files = args.get("files").get();
+   // ./simple1 --config efg
+    //std::string str = args.usage();
+    printf("config = %s\n", val.c_str());
+    for(std::string abc: files){
+        printf("file: %s\n", abc.c_str());
+    }
+
     testCvResize();
    // cout << "Hello World!" << endl;
     printCudaInfo();
