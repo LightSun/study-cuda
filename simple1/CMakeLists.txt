@@ -73,3 +73,19 @@ add_executable(study_avx
     ${AVX_HEADERS}
     ${AVX_SRCS}
     )
+
+### cuda-extern
+set(CUDA_SEPARABLE_COMPILATION ON)
+add_definitions(-DUSE_GPU)
+CUDA_COMPILE(EXT_B_0 cuda_extern/b.cu cuda_extern/a.cu "--gpu-architecture=sm_80 --device-c")
+message(STATUS "EXT_B_0: ${EXT_B_0}")
+
+# not work why?
+#cuda_add_executable(
+#    stu_cuda_dc
+#    cuda_extern/b.h
+#    ${EXT_B_0}
+#    )
+# target_link_libraries(stu_cuda_dc ${CUDA_LIBRARIES} cudart cuda)
+
+
