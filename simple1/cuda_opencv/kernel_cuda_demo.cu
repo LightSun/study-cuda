@@ -144,48 +144,102 @@ extern "C" void addWithCuda(int *c, const int *a, const int *b, unsigned int siz
 
     //testThread1<<<1, size>>>(dev_c, dev_a, dev_b);
 
-    //uint3 s;s.x = size/5;s.y = 5;s.z = 1;
+    //uint3 s;
+    //s.x = size/5;
+    //s.y = 5;
+    //s.z = 1;
     //testThread2 <<<1,s>>>(dev_c, dev_a, dev_b);
 
-    //uint3 s; s.x = size / 10; s.y = 5; s.z = 2;
+    //uint3 s;
+    //s.x = size / 10;
+    //s.y = 5;
+    //s.z = 2;
     //testThread3<<<1, s >>>(dev_c, dev_a, dev_b);
 
     //testBlock1<<<size,1 >>>(dev_c, dev_a, dev_b);
 
-    //uint3 s; s.x = size / 5; s.y = 5; s.z = 1;
+    //uint3 s;
+    //s.x = size / 5;
+    //s.y = 5;
+    //s.z = 1;
     //testBlock2<<<s, 1 >>>(dev_c, dev_a, dev_b);
 
-    //uint3 s; s.x = size / 10; s.y = 5; s.z = 2;
+    //uint3 s;
+    //s.x = size / 10;
+    //s.y = 5;
+    //s.z = 2;
     //testBlock3<<<s, 1 >>>(dev_c, dev_a, dev_b);
 
     //testBlockThread1<<<size/10, 10>>>(dev_c, dev_a, dev_b);
 
-    //uint3 s1; s1.x = size / 100; s1.y = 1; s1.z = 1;
-    //uint3 s2; s2.x = 10; s2.y = 10; s2.z = 1;
+    //uint3 s1;
+    //s1.x = size / 100;
+    //s1.y = 1;
+    //s1.z = 1;
+    //uint3 s2;
+   // s2.x = 10;
+   // s2.y = 10;
+   // s2.z = 1;
     //testBlockThread2 << <s1, s2 >> >(dev_c, dev_a, dev_b);
 
-    //uint3 s1; s1.x = size / 100; s1.y = 1; s1.z = 1;
-    //uint3 s2; s2.x = 10; s2.y = 5; s2.z = 2;
+    //uint3 s1;
+    //s1.x = size / 100;
+    //s1.y = 1;
+    //s1.z = 1;
+    //uint3 s2;
+    //s2.x = 10;
+    //s2.y = 5;
+    //s2.z = 2;
     //testBlockThread3 << <s1, s2 >> >(dev_c, dev_a, dev_b);
 
-    //uint3 s1; s1.x = 10; s1.y = 10; s1.z = 1;
-    //uint3 s2; s2.x = size / 100; s2.y = 1; s2.z = 1;
+    //uint3 s1;
+    //s1.x = 10;
+   // s1.y = 10;
+   // s1.z = 1;
+    //uint3 s2;
+    // s2.x = size / 100;
+    // s2.y = 1;
+    // s2.z = 1;
     //testBlockThread4 << <s1, s2 >> >(dev_c, dev_a, dev_b);
 
-    //uint3 s1; s1.x = 10; s1.y = 5; s1.z = 2;
-    //uint3 s2; s2.x = size / 100; s2.y = 1; s2.z = 1;
+    //uint3 s1;
+    //s1.x = 10;
+    //s1.y = 5;
+    //s1.z = 2;
+    //uint3 s2;
+    // s2.x = size / 100;
+    // s2.y = 1;
+    // s2.z = 1;
     //testBlockThread5 << <s1, s2 >> >(dev_c, dev_a, dev_b);
 
-    //uint3 s1; s1.x = size / 100; s1.y = 10; s1.z = 1;
-    //uint3 s2; s2.x = 5; s2.y = 2; s2.z = 1;
+    //uint3 s1;
+    // s1.x = size / 100;
+    //s1.y = 10;
+    //s1.z = 1;
+    //uint3 s2;
+    //s2.x = 5;
+    //s2.y = 2;
+    //s2.z = 1;
     //testBlockThread6 << <s1, s2 >> >(dev_c, dev_a, dev_b);
 
-    //uint3 s1; s1.x = size / 100; s1.y = 5; s1.z = 1;
-    //uint3 s2; s2.x = 5; s2.y = 2; s2.z = 2;
+    //uint3 s1;
+    //s1.x = size / 100;
+    //s1.y = 5;
+    //s1.z = 1;
+    //uint3 s2;
+    //s2.x = 5;
+    //s2.y = 2;
+    //s2.z = 2;
     //testBlockThread7 << <s1, s2 >> >(dev_c, dev_a, dev_b);
 
-    //uint3 s1; s1.x = 5; s1.y = 2; s1.z = 2;
-    //uint3 s2; s2.x = size / 100; s2.y = 5; s2.z = 1;
+    //uint3 s1;
+    //s1.x = 5;
+    //s1.y = 2;
+    //s1.z = 2;
+    //uint3 s2;
+    //s2.x = size / 100;
+    //s2.y = 5;
+    //s2.z = 1;
     //testBlockThread8 <<<s1, s2 >>>(dev_c, dev_a, dev_b);
 
     uint3 s1; s1.x = 5; s1.y = 2; s1.z = 2;

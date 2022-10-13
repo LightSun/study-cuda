@@ -75,10 +75,10 @@ add_executable(study_avx
     )
 
 ### cuda-extern
-set(CUDA_SEPARABLE_COMPILATION ON)
-add_definitions(-DUSE_GPU)
-CUDA_COMPILE(EXT_B_0 cuda_extern/b.cu cuda_extern/a.cu "--gpu-architecture=sm_80 --device-c")
-message(STATUS "EXT_B_0: ${EXT_B_0}")
+#set(CUDA_SEPARABLE_COMPILATION ON)
+#add_definitions(-DUSE_GPU)
+#CUDA_COMPILE(EXT_B_0 cuda_extern/b.cu cuda_extern/a.cu "--gpu-architecture=sm_80 --device-c")
+#message(STATUS "EXT_B_0: ${EXT_B_0}")
 
 # not work why?
 #cuda_add_executable(
@@ -87,5 +87,14 @@ message(STATUS "EXT_B_0: ${EXT_B_0}")
 #    ${EXT_B_0}
 #    )
 # target_link_libraries(stu_cuda_dc ${CUDA_LIBRARIES} cudart cuda)
-
+#
+#include(cmake/test.cmake)
+include(cmake/cuda_helps.cmake)
+set(CUDA_SAMPLE_DIR /usr/local/cuda-11.1/samples)
+set(CUDA_SIMPLE_DIR ${CUDA_SAMPLE_DIR}/0_Simple)
+include_directories(${CUDA_SAMPLE_DIR}/common/inc)
+#
+file(GLOB SRC_ASYNC_API ${CUDA_SAMPLE_DIR}/0_Simple/asyncAPI/*.cu)
+cuda_add_demo(exe_name asyncApi exe_files ${SRC_ASYNC_API})
+cuda_add_demo(exe_name simpleTexture exe_files ${CUDA_SIMPLE_DIR}/simpleTexture/simpleTexture.cu)
 
